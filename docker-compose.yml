@@ -1,0 +1,21 @@
+version: '3'
+services:
+  app:
+    build: .
+    image: jms1989/proftpdserver
+    environment:
+      FTP_LIST: "ftpuser:ftpuser"
+    ports:
+      - "2021:21"
+    volumes:
+      - ./data:/data
+      - ./proftpd.conf:/etc/proftpd/proftpd.conf
+
+    hostname: ftpserver
+  web:
+    image: nginx:alpine
+    ports:
+      - "2080:80"
+    volumes:
+      - ./data:/data
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
